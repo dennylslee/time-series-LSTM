@@ -43,6 +43,11 @@ for i in range(TS_list_size):									# generate a cosine wave
 	cossample += np.sin(np.pi *2 * (i % coscyclelong) / coscyclelong) # add low freq cosine for modulation
 	cossample_list.append(cossample)
 ```
+
+The raw waveform (time seres) looks like this:
+
+![image of raw ts](https://github.com/dennylslee/time-series-LSTM/blob/master/cos-rawTS.png)
+
 ## LSTM prediction
 
 # Acknowledgment
