@@ -6,7 +6,7 @@ Two main programs are contained in this project:
 1. cosine-datagen.py for generating the time series for analysis
 2. cosine-RNN-LSTM.py for constructing the LSTM 
 
-The LSTM is built on Keras framework.
+The LSTM is built on Keras framework. For some of best LSTM tutorial I have encontered, goes to [Colah's Blog](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) and [Shi Yan blog on understanding LSTM](https://medium.com/mlreview/understanding-lstm-and-its-diagrams-37e2f46f1714)
 
 ## Time series generation
 
@@ -87,7 +87,7 @@ model.fit(trainX, trainY, epochs=50, batch_size=1, verbose=2)
 
 ## Results with varying training size
 
-The predition results are overlayed on top of the raw time series.  The orange colored line is the training set and the green colored line is the testing set. 
+The predition results are overlayed on top of the raw time series.  The orange colored line is the training set and the green colored line is the testing set. The presence of a larger amount of training data minimizes the error (root mean) as the LSTM can fit the model from a more representative sequence. 
 
 ![image of 20pct training](https://github.com/dennylslee/time-series-LSTM/blob/master/cos-testresult-20pct-training.png)
 
