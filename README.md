@@ -6,7 +6,7 @@ Two main programs are contained in this project:
 1. cosine-datagen.py for generating the time series for analysis
 2. cosine-RNN-LSTM.py for constructing the LSTM 
 
-The LSTM is built on Keras framework. For some of best LSTM tutorial I have encontered, goes to [Colah's Blog](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) and [Shi Yan blog on understanding LSTM](https://medium.com/mlreview/understanding-lstm-and-its-diagrams-37e2f46f1714)
+The LSTM is built on Keras framework. For some of best LSTM tutorial I have encontered, go to [Colah's Blog](http://colah.github.io/posts/2015-08-Understanding-LSTMs/) and [Shi Yan blog on understanding LSTM](https://medium.com/mlreview/understanding-lstm-and-its-diagrams-37e2f46f1714)
 
 ## Time series generation
 
