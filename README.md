@@ -44,10 +44,57 @@ for i in range(TS_list_size):									# generate a cosine wave
 	cossample_list.append(cossample)
 ```
 
-The raw waveform (time seres) looks like this:
+The raw waveform (time series) looks like this:
 
 ![image of raw ts](https://github.com/dennylslee/time-series-LSTM/blob/master/cos-rawTS.png)
 
 ## LSTM prediction
 
+A single layer LSTM is used for performing the prediction.  The internal state (vector) size of the cell and hidden state is set as 10. The look_back variable controls the size of the input vector into the RNN(LSTM).  
+
+Sensitivity analysis options:
+1. The training size proportion
+2. Look back (i.e. the timestep of the input vector) 
+3. LSTM unit which is the internal vector size of the cell (memory) and hidden state 
+
+```python
+# split into train and test sets
+# control the proportion of training set here
+train_size = int(len(dataset) * 0.02)
+test_size = len(dataset) - train_size
+train, test = dataset[0:train_size,:], dataset[train_size:len(dataset),:]
+
+# reshape into X=t and Y=t+1
+# look_back dictates the time steps and the hidden layer; can cause overfitting error when it's too large
+look_back = 5
+trainX, trainY = create_dataset(train, look_back)
+testX, testY = create_dataset(test, look_back)
+ 
+# reshape input to be [samples, time steps, features]
+# NOTE: time steps and features are reversed from example given
+trainX = numpy.reshape(trainX, (trainX.shape[0], trainX.shape[1],1))
+testX = numpy.reshape(testX, (testX.shape[0], testX.shape[1],1))
+
+# create and fit the LSTM network
+# single hidden layer (timestep is one) and cell states
+# The "unit" value in this case is the size of the cell state and the size of the hidden state
+model = Sequential()
+model.add(LSTM(10, input_shape=(look_back,1))) 	# NOTE: time steps and features are reversed from example given
+model.add(Dense(1))
+model.compile(loss='mean_squared_error', optimizer='adam')
+model.fit(trainX, trainY, epochs=50, batch_size=1, verbose=2)
+```
+
+## Results with varying training size
+
+The predition results are overlayed on top of the raw time series.  The orange colored line is the training set and the green colored line is the testing set. 
+
+![image of 20pct training](https://github.com/dennylslee/time-series-LSTM/blob/master/cos-testresult-20pct-training.png)
+
+![image of 10pct training](https://github.com/dennylslee/time-series-LSTM/blob/master/cos-testresult-10pct-training.png)
+
+![image of 2pct training](https://github.com/dennylslee/time-series-LSTM/blob/master/cos-testresult-2pct-training.png)
+
 # Acknowledgment
+
+Thanks to Dr. Jason Brownlee from [machinelearningmastery.com](https://machinelearningmastery.com/) for providing the base code. 
