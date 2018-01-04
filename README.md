@@ -89,11 +89,39 @@ model.fit(trainX, trainY, epochs=50, batch_size=1, verbose=2)
 
 The predition results are overlayed on top of the raw time series.  The orange colored line is the training set and the green colored line is the testing set. The presence of a larger amount of training data minimizes the error (root mean square error) as the LSTM can fit the model from a more representative sequence. 
 
+20 percent for training:
+
 ![image of 20pct training](https://github.com/dennylslee/time-series-LSTM/blob/master/cos-testresult-20pct-training.png)
+
+10 precent for training:
 
 ![image of 10pct training](https://github.com/dennylslee/time-series-LSTM/blob/master/cos-testresult-10pct-training.png)
 
+2 percent for training:
+
 ![image of 2pct training](https://github.com/dennylslee/time-series-LSTM/blob/master/cos-testresult-2pct-training.png)
+
+## Result from adding an extra stacked layer of LSTM blocks
+
+Keras provided a simple way to stack LSTM layer by simply evoking the model.add method.  The main change is to ensure the attribute of return_sequences is set to True in the previous layer such that all the LSTM blocks are from the lower layer to the upper layer. 
+
+```python
+# create and fit the LSTM network
+# single hidden layer (timestep is one) and cell states
+# The "unit" value in this case is the size of the cell state and the size of the hidden state
+model = Sequential()
+model.add(LSTM(10, return_sequences=True, input_shape=(look_back,1))) 	# NOTE: time steps and features are reversed from example given
+model.add(LSTM(10))														# optional stack layer of LSTM blocks
+model.add(Dense(1))
+model.compile(loss='mean_squared_error', optimizer='adam')
+model.fit(trainX, trainY, epochs=50, batch_size=1, verbose=2)
+```
+
+Result shown for the 2 percentage training set case below.  The RMSE seems to have worsen and the predict does not follow the slow rise trend (i.e. created by the parabolic component in the original time series).  
+
+The lack of training is posting a greater challenage to the LSTM and possibly the extra layer with no dropout  inserted causes an overfitting situation leading to the worsen result. 
+
+![image stack layer](https://github.com/dennylslee/time-series-LSTM/blob/master/cos-testresult-2pct-training-w-stack.png)
 
 # Acknowledgment
 
