@@ -85,9 +85,9 @@ model.compile(loss='mean_squared_error', optimizer='adam')
 model.fit(trainX, trainY, epochs=50, batch_size=1, verbose=2)
 ```
 
-## Results with varying training size
+## Results from varying training size
 
-The predition results are overlayed on top of the raw time series.  The orange colored line is the training set and the green colored line is the testing set. The presence of a larger amount of training data minimizes the error (root mean) as the LSTM can fit the model from a more representative sequence. 
+The predition results are overlayed on top of the raw time series.  The orange colored line is the training set and the green colored line is the testing set. The presence of a larger amount of training data minimizes the error (root mean square error) as the LSTM can fit the model from a more representative sequence. 
 
 ![image of 20pct training](https://github.com/dennylslee/time-series-LSTM/blob/master/cos-testresult-20pct-training.png)
 

@@ -52,7 +52,8 @@ testX = numpy.reshape(testX, (testX.shape[0], testX.shape[1],1))
 # single hidden layer (timestep is one) and cell states
 # The "unit" value in this case is the size of the cell state and the size of the hidden state
 model = Sequential()
-model.add(LSTM(10, input_shape=(look_back,1))) 	# NOTE: time steps and features are reversed from example given
+model.add(LSTM(10, return_sequences=True, input_shape=(look_back,1))) 	# NOTE: time steps and features are reversed from example given
+model.add(LSTM(10))														# optional stack layer of LSTM blocks
 model.add(Dense(1))
 model.compile(loss='mean_squared_error', optimizer='adam')
 model.fit(trainX, trainY, epochs=50, batch_size=1, verbose=2)
