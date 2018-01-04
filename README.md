@@ -18,8 +18,7 @@ The raw time series is created 4 raw components (effectively modulation):
 
 The main code construct:
 
-'''python
-#start = time.time()
+```python
 TS_list_size = 2000			# the length of the time series
 norm_mu = 0 				# center the guassian mean at zero
 norm_signma = 2				# sigma determine the spread
@@ -43,8 +42,7 @@ for i in range(TS_list_size):									# generate a cosine wave
 	cossample += np.square(i/1000)								# put the time series on a square function
 	cossample += np.sin(np.pi *2 * (i % coscyclelong) / coscyclelong) # add low freq cosine for modulation
 	cossample_list.append(cossample)
-'''
-
+```
 ## LSTM prediction
 
 # Acknowledgment
